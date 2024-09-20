@@ -28,7 +28,7 @@ public class ScriptCreator {
         } else if (OsUtils.isLinux() || OsUtils.isMacos()) {
             extension = "sh";
         } else {
-            logger.warn("Your operating system is not supported! GeyserUpdater only supports automatic script creation for Linux, macOS, and Windows.");
+            logger.warn("您的操作系统不受支持！GeyserUpdater 仅支持为 Linux、macOS 和 Windows 自动生成脚本。 ");
             return;
         }
         file = new File("ServerRestartScript." + extension);
@@ -57,14 +57,14 @@ public class ScriptCreator {
             dos.writeBytes("java " + runtimeFlags + " -jar " + ManagementFactory.getRuntimeMXBean().getClassPath() + " nogui\n");
             if (runLoop) {
                 if (OsUtils.isWindows()) {
-                    dos.writeBytes("timeout 10 && goto restart\n");
+                    dos.writeBytes("超10秒时转重启\n");
                 } else if (OsUtils.isLinux() || OsUtils.isMacos()) {
-                    dos.writeBytes("echo \"Server stopped, restarting in 10 seconds!\"; sleep 10; done\n");
+                    dos.writeBytes("echo \"服务器已停止，将10秒后重启\"; 等待 10秒; 完成\n");
                 }
             }
-            logger.info("GeyserUpdater has finished creating a restart script.");
+            logger.info("GeyserUpdater 已完成重启脚本的创建。 ");
             if (runLoop) {
-                logger.warn("You will need to shut down and start the server again using the newly-generated script in order for the auto-restart functionality to begin working.");
+                logger.warn("您需要使用新生成的脚本关闭并重新启动服务器，以便自动重启功能开始工作。 ");
             }
         }
     }

@@ -27,7 +27,7 @@ public class GeyserSpigotDownloader {
         plugin = SpigotUpdater.getPlugin();
         logger = UpdaterLogger.getLogger();
 
-        UpdaterLogger.getLogger().debug("Attempting to download a new build of Geyser.");
+        UpdaterLogger.getLogger().debug("尝试下载新的 Geyser 版本。 汉化自柠檬汉化组:https://github.com/ningmeng-i18n");
 
         boolean doRestart = plugin.getConfig().getBoolean("Auto-Restart-Server");
 
@@ -43,7 +43,7 @@ public class GeyserSpigotDownloader {
                     @Override
                     public void run() {
                         if (downloadSuccess) {
-                            String successMsg = "The latest build of Geyser has been downloaded! A restart must occur in order for changes to take effect.";
+                            String successMsg = "最新的 Geyser 版本已下载！必须重启服务器以便使更改生效。 ";
                             logger.info(successMsg);
                             for (Player player : Bukkit.getOnlinePlayers()) {
                                 if (player.hasPermission("gupdater.geyserupdate")) {
@@ -55,7 +55,7 @@ public class GeyserSpigotDownloader {
                             }
                         } else {
                             // fail messages are already sent to the logger in downloadGeyser()
-                            String failMsg = "A error(); error occurred when download a new build of Geyser. Please check the server console for further information!";
+                            String failMsg = "下载新的 Geyser 版本时发生错误()。请检查服务器控制台以获取更多信息！ ";
                             for (Player player : Bukkit.getOnlinePlayers()) {
                                 if (player.hasPermission("gupdater.geyserupdate")) {
                                     player.sendMessage(ChatColor.RED + failMsg);
@@ -81,12 +81,12 @@ public class GeyserSpigotDownloader {
             String expectedHash = new GeyserDownloadApi().data().downloads().spigot().sha256();
             FileUtils.downloadFile(fileUrl, outputPath, expectedHash);
         } catch (Exception e) {
-            logger.error("Failed to download the newest build of Geyser", e);
+            logger.error("下载最新的 Geyser 版本失败 ", e);
             return false;
         }
 
         if (!FileUtils.checkFile(outputPath, false)) {
-            logger.error("Failed to find the downloaded Geyser build!");
+            logger.error("未能找到已下载的 Geyser 版本！ ");
             return false;
         } else {
             return true;
@@ -97,7 +97,7 @@ public class GeyserSpigotDownloader {
      * Attempt to restart the server
      */
     private static void restartServer() {
-        logger.warn("The server will be restarting in 10 seconds!");
+        logger.warn("服务器将在 10 秒后重启！ ");
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Restart-Message-Players")));
         }
@@ -110,16 +110,16 @@ public class GeyserSpigotDownloader {
                     try {
                         spigotServer = SpigotUpdater.getPlugin().getServer().getClass().getMethod("spigot").invoke(SpigotUpdater.getPlugin().getServer());
                     } catch (NoSuchMethodException e) {
-                        logger.error("You are not running Spigot (or a fork of it, such as Paper)! GeyserUpdater cannot automatically restart your server!", e);
+                        logger.error("您没有运行 Spigot（或其分支，如 Paper）！GeyserUpdater 无法自动重启您的服务器！ ", e);
                         return;
                     }
                     Method restartMethod = spigotServer.getClass().getMethod("restart");
                     restartMethod.setAccessible(true);
                     restartMethod.invoke(spigotServer);
                 } catch (NoSuchMethodException e) {
-                    logger.error("Your server version is too old to be able to be automatically restarted!", e);
+                    logger.error("您的服务器版本太旧，无法自动重启！ ", e);
                 } catch (InvocationTargetException | IllegalAccessException e) {
-                    logger.error("Failed to restart the server!", e);
+                    logger.error("重启服务器失败！ ", e);
                 }
             }
         }.runTaskLater(plugin, 200); // 200 ticks is around 10 seconds (at 20 TPS)

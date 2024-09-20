@@ -41,14 +41,14 @@ public final class JavaUtilUpdaterLogger implements UpdaterLogger {
     public void enableDebug() {
         originLevel = logger.getLevel();
         logger.setLevel(Level.ALL);
-        info("Debug logging enabled");
+        info("调试日志已启用");
     }
 
     @Override
     public void disableDebug() {
         if (originLevel != null) {
             logger.setLevel(originLevel);
-            info("Debug logging disabled");
+            info("调试日志已启用");
         }
     }
 

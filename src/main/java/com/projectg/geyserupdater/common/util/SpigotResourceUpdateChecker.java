@@ -26,11 +26,11 @@ public class SpigotResourceUpdateChecker {
             if (version.matches(VERSION_REGEX)) {
                 return version;
             } else {
-                UpdaterLogger.getLogger().warn("Got unexpected string when checking Spigot resource page version: " + version);
+                UpdaterLogger.getLogger().warn("在检查 Spigot 资源页面版本时获得了意外的字符串: " + version);
                 return null;
             }
         } catch (IOException exception) {
-            UpdaterLogger.getLogger().error("Failed to check for updates: " + exception.getMessage());
+            UpdaterLogger.getLogger().error("检查更新失败: " + exception.getMessage());
             return null;
         }
     }

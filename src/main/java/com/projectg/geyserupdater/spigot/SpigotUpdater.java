@@ -33,7 +33,7 @@ public class SpigotUpdater extends JavaPlugin {
 
         loadConfig();
         if (getConfig().getBoolean("Enable-Debug", false)) {
-            UpdaterLogger.getLogger().info("Trying to enable debug logging.");
+            UpdaterLogger.getLogger().info("尝试启用调试日志记录。 汉化自柠檬汉化组:https://github.com/ningmeng-i18n");
             UpdaterLogger.getLogger().enableDebug();
         }
 
@@ -65,7 +65,7 @@ public class SpigotUpdater extends JavaPlugin {
             @Override
             public void run() {
                 if (FileUtils.checkFile("plugins/update/Geyser-Spigot.jar", false)) {
-                    UpdaterLogger.getLogger().info("A new Geyser build has been downloaded! Please restart the server in order to use the updated build!");
+                    UpdaterLogger.getLogger().info("已下载新的 Geyser 版本！请重启服务器以使用更新后的版本！ ");
                 }
             }
         }.runTaskTimerAsynchronously(this, 30 * 60 * 20, 12 * 60 * 60 * 20);
@@ -94,7 +94,7 @@ public class SpigotUpdater extends JavaPlugin {
     public void checkConfigVersion() {
         //Change version number only when editing config.yml!
         if (getConfig().getInt("Config-Version", 0) != 2) {
-            UpdaterLogger.getLogger().warn("Your copy of config.yml is outdated. Please delete it and let a fresh copy of config.yml be regenerated!");
+            UpdaterLogger.getLogger().warn("您的 config.yml 文件已过时。请删除它，并让系统生成一个新的 config.yml 文件！ ");
         }
     }
 
@@ -109,12 +109,12 @@ public class SpigotUpdater extends JavaPlugin {
             public void run() {
                 String latestVersion = SpigotResourceUpdateChecker.getVersion();
                 if (latestVersion == null || latestVersion.isEmpty()) {
-                    logger.error("Failed to determine the latest GeyserUpdater version!");
+                    logger.error("确定最新 GeyserUpdater 版本失败！");
                 } else {
                     if (latestVersion.equals(pluginVersion)) {
-                        logger.info("You are using the latest version of GeyserUpdater!");
+                        logger.info("您正在使用最新版本的 GeyserUpdater！ ");
                     } else {
-                        logger.info("Your version: " + pluginVersion + ". Latest version: "  + latestVersion + ". Download the newer version at https://www.spigotmc.org/resources/geyserupdater.88555/.");
+                        logger.info("正在用: " + pluginVersion + ". 新的可用: "  + latestVersion + ". 前往链接下载最新版 https://www.spigotmc.org/resources/geyserupdater.88555/.");
                     }
                 }
             }
@@ -125,21 +125,21 @@ public class SpigotUpdater extends JavaPlugin {
      * Check for a newer version of Geyser every 24hrs
      */
     public void scheduleAutoUpdate() {
-        UpdaterLogger.getLogger().debug("Scheduling auto updater");
+        UpdaterLogger.getLogger().debug("尝试启用自动更新");
         // todo: build this in different way so that we don't repeat it if the Auto-Update-Interval is zero or -1 or something
         new BukkitRunnable() {
 
             @Override
             public void run() {
-                UpdaterLogger.getLogger().debug("Checking if a new build of Geyser exists.");
+                UpdaterLogger.getLogger().debug("检查是否存在新的 Geyser 版本。");
                 try {
                     boolean isLatest = GeyserProperties.isLatestBuild();
                     if (!isLatest) {
-                        UpdaterLogger.getLogger().info("A newer build of Geyser is available! Attempting to download the latest build now...");
+                        UpdaterLogger.getLogger().info("有新的 Geyser 版本可用！正在尝试下载最新版本... ");
                         GeyserSpigotDownloader.updateGeyser();
                     }
                 } catch (Exception e) {
-                    UpdaterLogger.getLogger().error("Failed to check for updates to Geyser! We were unable to reach the Geyser build server, or your local branch does not exist on it.", e);
+                    UpdaterLogger.getLogger().error("检查 Geyser 更新失败！我们无法连接到 Geyser 构建服务器，或者您的本地分支在服务器上不存在。 ", e);
                 }
                 // Auto-Update-Interval is in hours. We convert it into ticks
             }

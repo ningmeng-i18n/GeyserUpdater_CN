@@ -39,16 +39,16 @@ public class FileUtils {
         if (allowCached) {
             long elapsedTime = System.currentTimeMillis() - callTime;
             if (elapsedTime < 30 * 60 * 1000) {
-                logger.debug("Returning a cached result of the last time we checked if a file exists. The cached result is: " + cachedResult);
+                logger.debug("返回上次检查文件是否存在时缓存的结果。缓存的结果是: " + cachedResult);
                 return cachedResult;
             } else {
-                logger.debug("Not returning a cached result of the last time we checked if a file exists because it has been too long.");
+                logger.debug("不返回上次检查文件是否存在时的缓存结果，因为时间已经过太久。 ");
             }
         }
         Path p = Paths.get(path);
         boolean exists = Files.exists(p);
 
-        logger.debug("Checked if a file exists. The result: " + exists);
+        logger.debug("检查文件是否存在。结果是: " + exists);
         callTime = System.currentTimeMillis();
         cachedResult = exists;
         return exists;
@@ -63,7 +63,7 @@ public class FileUtils {
      */
     public static void downloadFile(String fileURL, String outputPath, @Nullable String expectedSha256) throws IOException {
         UpdaterLogger logger = UpdaterLogger.getLogger();
-        logger.debug("Attempting to download a file with URL and output path: " + fileURL + " , " + outputPath);
+        logger.debug("尝试使用 URL 下载文件: " + fileURL + " ,保存到:   "+ outputPath);
 
         Path outputDirectory = Paths.get(outputPath).getParent();
         Files.createDirectories(outputDirectory);
@@ -75,7 +75,7 @@ public class FileUtils {
 
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
         } catch (Exception e) {
-            logger.error("Failed to download %s to %s".formatted(fileURL, outputPath), e);
+            logger.error("未能将 %s 下载到 %s ".formatted(fileURL, outputPath), e);
         }
 
         if (expectedSha256 != null) {
@@ -87,16 +87,16 @@ public class FileUtils {
             // compare
             if (expectedSha256.equals(hash)) {
                 if (logger.isDebug()) {
-                    logger.debug("Successful checksum for %s of %s".formatted(file, hash));
+                    logger.debug("%s 的 %s 校验成功 ".formatted(file, hash));
                 }
             } else {
-                logger.warn("Expected a hash of %s but got %s".formatted(expectedSha256, hash));
+                logger.warn("期望的哈希值为 %s，但实际得到的是 %s ".formatted(expectedSha256, hash));
 
                 // If the checksum failed we attempt to delete the broken build.
                 if (file.delete()) {
-                    logger.warn("Downloaded a jar whose checksum was incorrect, deleting: " + file);
+                    logger.warn("下载了一个校验不正确的 JAR 文件，正在删除： " + file);
                 } else {
-                    logger.error("Failed to delete a defective download, please delete manually: " + file);
+                    logger.error("未能删除一个不正确的下载文件，请手动删除： " + file);
                 }
             }
         }

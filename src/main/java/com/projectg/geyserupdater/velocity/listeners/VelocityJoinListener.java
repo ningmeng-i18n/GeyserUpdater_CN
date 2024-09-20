@@ -14,7 +14,7 @@ public class VelocityJoinListener {
         // We allow a cached result of maximum age 30 minutes to be used
         if (FileUtils.checkFile("plugins/GeyserUpdater/BuildUpdate/Geyser-Velocity.jar",true)) {
             if (event.getPlayer().hasPermission("gupdater.geyserupdate")) {
-                event.getPlayer().sendMessage(Component.text("[GeyserUpdater] A new Geyser build has been downloaded! Please restart Velocity in order to use the updated build!"));
+                event.getPlayer().sendMessage(Component.text("[GeyserUpdater]已下载新的 Geyser 版本！请重启 Velocity 以使用更新后的版本！ "));
             }
         }
     }

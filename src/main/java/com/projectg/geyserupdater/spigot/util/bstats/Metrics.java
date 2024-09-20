@@ -53,7 +53,7 @@ public class Metrics {
             final String examplePackage = new String(new byte[]{'y', 'o', 'u', 'r', '.', 'p', 'a', 'c', 'k', 'a', 'g', 'e'});
             // We want to make sure nobody just copy & pastes the example and use the wrong package names
             if (Metrics.class.getPackage().getName().equals(defaultPackage) || Metrics.class.getPackage().getName().equals(examplePackage)) {
-                throw new IllegalStateException("bStats Metrics class has not been relocated correctly!");
+                throw new IllegalStateException("bStats Metrics 类未正确重定位!");
             }
         }
     }
@@ -104,7 +104,7 @@ public class Metrics {
      */
     public Metrics(Plugin plugin, int pluginId) {
         if (plugin == null) {
-            throw new IllegalArgumentException("Plugin cannot be null!");
+            throw new IllegalArgumentException("插件不能为空！");
         }
         this.plugin = plugin;
         this.pluginId = pluginId;
@@ -130,10 +130,11 @@ public class Metrics {
 
             // Inform the server owners about bStats
             config.options().header(
-                    "bStats collects some data for plugin authors like how many servers are using their plugins.\n" +
-                            "To honor their work, you should not disable it.\n" +
-                            "This has nearly no effect on the server performance!\n" +
-                            "Check out https://bStats.org/ to learn more :)"
+                    "bStats 为插件作者收集一些数据，例如有多少服务器在使用他们的插件。\n" +
+                            "为了尊重他们的工作，你不应该禁用它。\n" +
+                            "这几乎不会影响服务器性能！\n" +
+                            "查看 https://bStats.org/ 以了解更多信息:)\n" +
+                            "汉化自柠檬汉化组！https://github.com/ningmeng-i18n，感谢支持！"
             ).copyDefaults(true);
             try {
                 config.save(configFile);
@@ -182,7 +183,7 @@ public class Metrics {
      */
     public void addCustomChart(CustomChart chart) {
         if (chart == null) {
-            throw new IllegalArgumentException("Chart cannot be null!");
+            throw new IllegalArgumentException("图表不能为空！ ");
         }
         charts.add(chart);
     }
@@ -317,7 +318,7 @@ public class Metrics {
                             } catch (ClassNotFoundException e) {
                                 // minecraft version 1.14+
                                 if (logFailedRequests) {
-                                    this.plugin.getLogger().log(Level.SEVERE, "Encountered unexpected exception", e);
+                                    this.plugin.getLogger().log(Level.SEVERE, "遇到意外的异常 ", e);
                                 }
                             }
                         }
@@ -336,7 +337,7 @@ public class Metrics {
             } catch (Exception e) {
                 // Something went wrong! :(
                 if (logFailedRequests) {
-                    plugin.getLogger().log(Level.WARNING, "Could not submit plugin stats of " + plugin.getName(), e);
+                    plugin.getLogger().log(Level.WARNING, "无法提交插件统计信息 " + plugin.getName(), e);
                 }
             }
         }).start();
@@ -351,13 +352,13 @@ public class Metrics {
      */
     private static void sendData(Plugin plugin, JsonObject data) throws Exception {
         if (data == null) {
-            throw new IllegalArgumentException("Data cannot be null!");
+            throw new IllegalArgumentException("数据不能为空！");
         }
         if (Bukkit.isPrimaryThread()) {
-            throw new IllegalAccessException("This method must not be called from the main thread!");
+            throw new IllegalAccessException("此方法不得在主线程中调用！ ");
         }
         if (logSentData) {
-            plugin.getLogger().info("Sending data to bStats: " + data);
+            plugin.getLogger().info("向 bStats 发送数据: " + data);
         }
         HttpsURLConnection connection = (HttpsURLConnection) new URL(URL).openConnection();
 
@@ -388,7 +389,7 @@ public class Metrics {
         }
 
         if (logResponseStatusText) {
-            plugin.getLogger().info("Sent data to bStats and received response: " + builder);
+            plugin.getLogger().info("已向 bStats 发送数据并收到响应: " + builder);
         }
     }
 
@@ -425,7 +426,7 @@ public class Metrics {
          */
         CustomChart(String chartId) {
             if (chartId == null || chartId.isEmpty()) {
-                throw new IllegalArgumentException("ChartId cannot be null or empty!");
+                throw new IllegalArgumentException("ChartId 不能为空或为空！ ");
             }
             this.chartId = chartId;
         }
@@ -442,7 +443,7 @@ public class Metrics {
                 chart.add("data", data);
             } catch (Throwable t) {
                 if (logFailedRequests) {
-                    Bukkit.getLogger().log(Level.WARNING, "Failed to get data for custom chart with id " + chartId, t);
+                    Bukkit.getLogger().log(Level.WARNING, "获取自定义图表数据失败，ID 为 " + chartId, t);
                 }
                 return null;
             }

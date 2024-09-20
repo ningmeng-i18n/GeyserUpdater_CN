@@ -39,7 +39,7 @@ public final class BungeeUpdater extends Plugin {
 
         this.loadConfig();
         if (getConfig().getBoolean("Enable-Debug", false)) {
-            UpdaterLogger.getLogger().info("Trying to enable debug logging.");
+            UpdaterLogger.getLogger().info("尝试启用调试……");
             UpdaterLogger.getLogger().enableDebug();
         }
 
@@ -67,7 +67,7 @@ public final class BungeeUpdater extends Plugin {
         // Check if downloaded Geyser file exists periodically
         getProxy().getScheduler().schedule(this, () -> {
             if (FileUtils.checkFile("plugins/GeyserUpdater/BuildUpdate/Geyser-BungeeCord.jar", true)) {
-                logger.info("A new Geyser build has been downloaded! Please restart BungeeCord in order to use the updated build!");
+                logger.info("新的 Geyser 版本已下载！请重启 BungeeCord 以使用更新后的版本！ ");
             }
         }, 30, 720, TimeUnit.MINUTES);
 
@@ -76,7 +76,7 @@ public final class BungeeUpdater extends Plugin {
     @Override
     public void onDisable() {
         // Force Geyser to disable so we can modify the jar in the plugins folder without issue
-        logger.debug("Forcing Geyser to disable first...");
+        logger.debug("强制 Geyser 先禁用... ");
         getProxy().getPluginManager().getPlugin("Geyser-BungeeCord").onDisable();
         try {
             moveGeyserJar();
@@ -85,16 +85,16 @@ public final class BungeeUpdater extends Plugin {
                     deleteGeyserJar();
                     break;
                 } catch (Exception e) {
-                    logger.warn("An error occurred while attempting to delete an unnecessary Geyser jar! Trying again " + (2 - i) + " more times.");
+                    logger.warn("尝试删除不必要的 Geyser jar 时发生错误！将再尝试 " + (2 - i) + " 次。 ");
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException interruptedException) {
-                        logger.error("Failed to delay an additional attempt!", interruptedException);
+                        logger.error("延迟过大，额外的尝试失败！", interruptedException);
                     }
                 }
             }
         } catch (Exception e) {
-            logger.error("An error occurred while attempting to replace the current Geyser jar with the new one! Giving up.", e);
+            logger.error("尝试用新版本的 Geyser jar 替换当前版本时发生错误！放弃替换。.", e);
         }
     }
 
@@ -115,7 +115,7 @@ public final class BungeeUpdater extends Plugin {
     public void checkConfigVersion(){
         //Change version number only when editing config.yml!
          if (configuration.getInt("Config-Version", 0) != 2){
-            logger.error("Your copy of config.yml is outdated. Please delete it and let a fresh copy of config.yml be regenerated!");
+            logger.error("您的 config.yml 文件已过时。请删除它并允许生成一个新的 config.yml 文件!");
          }
     }
 
@@ -127,12 +127,12 @@ public final class BungeeUpdater extends Plugin {
             String pluginVersion = getDescription().getVersion();
             String latestVersion = SpigotResourceUpdateChecker.getVersion();
             if (latestVersion == null || latestVersion.length() == 0) {
-                logger.error("Failed to determine the latest GeyserUpdater version!");
+                logger.error("获取最新 GeyserUpdater 版本失败！");
             } else {
                 if (latestVersion.equals(pluginVersion)) {
-                    logger.info("You are using the latest version of GeyserUpdater!");
+                    logger.info("您正在使用最新版本的 GeyserUpdater！ ");
                 } else {
-                    logger.info("Your version: " + pluginVersion + ". Latest version: "  + latestVersion + ". Download the newer version at https://www.spigotmc.org/resources/geyserupdater.88555/.");
+                    logger.info("你正在用: " + pluginVersion + ". 新版本: "  + latestVersion + ". 前往链接下载最新版 https://www.spigotmc.org/resources/geyserupdater.88555/.");
                 }
             }
 
@@ -143,19 +143,19 @@ public final class BungeeUpdater extends Plugin {
      * Check for a newer version of Geyser every 24hrs
      */
     public void scheduleAutoUpdate() {
-        UpdaterLogger.getLogger().debug("Scheduling auto updater");
+        UpdaterLogger.getLogger().debug("尝试启用自动更新 ");
         // todo: build this in different way so that we don't repeat it if the Auto-Update-Interval is zero or -1 or something
         getProxy().getScheduler().schedule(this, () -> {
-            logger.debug("Checking if a new build of Geyser exists.");
+            logger.debug("检查是否存在新的 Geyser 版本。 ");
             try {
                 // Checking for the build numbers of current build.
                 boolean isLatest = GeyserProperties.isLatestBuild();
                 if (!isLatest) {
-                    logger.info("A newer build of Geyser is available! Attempting to download the latest build now...");
+                    logger.info("有新的 Geyser 版本可用！正在尝试下载最新版本... ");
                     GeyserBungeeDownloader.updateGeyser();
                 }
             } catch (Exception e) {
-                logger.error("Failed to check for updates to Geyser! We were unable to reach the Geyser build server, or your local branch does not exist on it.", e);
+                logger.error("检查 Geyser 更新失败！无法连接到 Geyser 构建服务器，或者您的本地分支在服务器上不存在。 ", e);
             }
         }, 1, getConfig().getLong("Auto-Update-Interval", 24L) * 60, TimeUnit.MINUTES);
     }
@@ -170,7 +170,7 @@ public final class BungeeUpdater extends Plugin {
         // Moving Geyser Jar to Plugins folder "Overwriting".
         File fileToCopy = new File("plugins/GeyserUpdater/BuildUpdate/Geyser-BungeeCord.jar");
         if (fileToCopy.exists()) {
-            logger.debug("Moving the new Geyser jar to the plugins folder.");
+            logger.debug("将新的 Geyser jar 移动到 plugins 文件夹……");
             FileInputStream input = new FileInputStream(fileToCopy);
             File newFile = new File("plugins/Geyser-BungeeCord.jar");
             FileOutputStream output = new FileOutputStream(newFile);
@@ -182,7 +182,7 @@ public final class BungeeUpdater extends Plugin {
             input.close();
             output.close();
         } else {
-            logger.debug("Found no new Geyser jar to copy to the plugins folder.");
+            logger.debug("未找到可复制到 plugins 文件夹的新 Geyser jar。 ");
         }
     }
 
@@ -192,7 +192,7 @@ public final class BungeeUpdater extends Plugin {
      * @throws IOException If it failed to delete
      */
     private void deleteGeyserJar() throws IOException {
-        UpdaterLogger.getLogger().debug("Deleting the Geyser jar in the BuildUpdate folder if it exists");
+        UpdaterLogger.getLogger().debug("如果 BuildUpdate 文件夹中存在 Geyser jar，则删除它 ");
         Path file = Paths.get("plugins/GeyserUpdater/BuildUpdate/Geyser-BungeeCord.jar");
         Files.deleteIfExists(file);
     }

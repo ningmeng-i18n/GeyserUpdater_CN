@@ -23,14 +23,14 @@ public class CheckSpigotRestart {
         } else if (OsUtils.isLinux() || OsUtils.isMacos()) {
             scriptName = "./ServerRestartScript.sh";
         } else {
-            logger.warn("Your operating system is not supported! GeyserUpdater only supports automatic script creation for Linux, macOS, and Windows.");
+            logger.warn("您的操作系统不受支持！GeyserUpdater 仅支持为 Linux、macOS 和 Windows 自动生成脚本。 ");
             return;
         }
         FileConfiguration spigotConfigurationYamlFile = YamlConfiguration.loadConfiguration(new File(new File("").getAbsolutePath(), "spigot.yml"));
         String scriptPath = spigotConfigurationYamlFile.getString("settings.restart-script");
         File script = new File(scriptPath);
         if (script.exists()) {
-            logger.info("An existing restart script has been detected!");
+            logger.info("检测到已存在的重启脚本！");
         } else {
             try {
                 // Tell the createScript method that a loop is not necessary because spigot has a restart system.
@@ -47,8 +47,8 @@ public class CheckSpigotRestart {
                 e.printStackTrace();
                 return;
             }
-            logger.warn("The config value 'restart-script' in spigot.yml has been set to " + scriptName);
-            logger.warn("You must restart the server in order for the restart functionality to work!");
+            logger.warn("spigot.yml 中的配置值 'restart-script' 已设置为 " + scriptName);
+            logger.warn("您必须重启服务器以便重启功能生效！ ");
         }
     }
 }
