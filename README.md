@@ -1,5 +1,5 @@
 
-## 由于GeyserUpdater 停止了更新并且语言消息被写死，我们决定翻译GeyserUpdater为简体中文。
+## 由于GeyserUpdater 语言消息被写死，我们决定翻译GeyserUpdater为简体中文。
 **汉化和构建测试由@柠枺提供，我们不接受翻译之外的任何问题。**
 
 # 原文
