@@ -48,7 +48,7 @@ public final class Slf4jUpdaterLogger implements UpdaterLogger {
     public void enableDebug() {
         if (!logger.isDebugEnabled()) {
             Configurator.setLevel(logger.getName(), Level.DEBUG);
-            info("Debug logging enabled");
+            info("调试日志已启用！汉化自柠檬汉化组:https://github.com/ningmeng-i18n");
         }
     }
 
@@ -56,7 +56,7 @@ public final class Slf4jUpdaterLogger implements UpdaterLogger {
     public void disableDebug() {
         if (logger.isDebugEnabled()) {
             Configurator.setLevel(logger.getName(), Level.INFO);
-            info("Debug logging disabled");
+            info("D调试日志已启用，汉化自柠檬汉化组:https://github.com/ningmeng-i18n");
         }
     }
 
