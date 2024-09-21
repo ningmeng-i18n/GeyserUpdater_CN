@@ -1,8 +1,3 @@
-## 由于GeyserUpdater 停止了更新并且语言消息被写死，我们决定翻译GeyserUpdater为简体中文。
-汉化和构建测试由@柠枺提供，我们不接受翻译之外的任何问题。
-
-
-# 原文
 ### 如果您希望为 GeyserUpdater 做贡献，请在我们的 [Discord](https://discord.gg/xXzzdAXa2b) 中询问应该使用哪个分支进行修改。
 
 - 要克隆仓库，请在命令行或终端中运行 `git clone https://github.com/ProjectG-Plugins/GeyserUpdater.git`。
