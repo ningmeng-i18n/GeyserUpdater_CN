@@ -1,3 +1,8 @@
+
+## 由于GeyserUpdater 停止了更新并且语言消息被写死，我们决定翻译GeyserUpdater为简体中文。
+**汉化和构建测试由@柠枺提供，我们不接受翻译之外的任何问题。**
+
+# 原文
 [![Build Status](https://ci.kejonamc.dev/job/GeyserUpdater/job/main/badge/icon)](https://ci.kejonamc.dev/job/GeyserUpdater/job/main/)
 [![License](https://img.shields.io/badge/License-GPL-orange)](https://github.com/YHDiamond/GeyserUpdater/blob/main/LICENSE)
 [![bStats Spigot](https://img.shields.io/bstats/servers/10202?color=yellow&label=Spigot%20servers)](https://bstats.org/plugin/bukkit/GeyserUpdater/10202)
