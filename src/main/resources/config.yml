@@ -1,26 +1,26 @@
 # GeyserUpdater
-# Made by Jens & YHDiamond
+# 由 Jens 和 YHDiamond 制作
 
-# NOTICE: Please read the README on our github page for full information regarding these options!
+# 注意：请阅读我们 GitHub 页面上的 README，以获取有关这些选项的完整信息！
 # https://github.com/ProjectG-Plugins/GeyserUpdater
 
-# If enabled, GeyserUpdater will check for new Geyser builds on server start, and on the interval specified by Auto-Update-Interval. If a new build exists, it will be downloaded.
+# 如果启用，GeyserUpdater 将在服务器启动时以及由 Auto-Update-Interval 指定的时间间隔内检查新的 Geyser 版本。如果存在新版本，将会被下载。
 Auto-Update-Geyser: false
-# The interval in hours between each auto update check.
+# 每次自动更新检查之间的时间间隔（小时）。
 Auto-Update-Interval: 24
 
-# If enabled, GeyserUpdater will attempt to restart the server 10 seconds after a new version of Geyser has been successfully downloaded.
-# If you aren't using a hosting provider or a server wrapper, you will need a restart script.
+# 如果启用，GeyserUpdater 将在成功下载新的 Geyser 版本后 10 秒尝试重启服务器。
+# 如果您不是使用托管服务提供商或服务器包装器，您需要一个重启脚本。
 Auto-Restart-Server: false
-# When enabled, GeyserUpdater will automatically generate a restart script for you. If you are using CraftBukkit or a proxy
-# you will need to use the generated script to start your server! If you are using a hosting provider or a server wrapper you probably don't need this.
+# 启用时，GeyserUpdater 将自动生成一个重启脚本。如果您使用的是 CraftBukkit 或代理，
+# 您需要使用生成的脚本来启动服务器！如果您使用的是托管服务提供商或服务器包装器，可能不需要这个功能。
 Auto-Script-Generating: false
 
-# Configure the message that is sent to all online players warning them that the server will be restarting in 10 seconds.
-Restart-Message-Players: '&2This server will be restarting in 10 seconds!'
+# 配置发送给所有在线玩家的消息，警告他们服务器将在 10 秒后重启。
+Restart-Message-Players: '&2服务器将在 10 秒后重启！'
 
-# Enable debug logging
+# 启用调试日志记录
 Enable-Debug: false
 
-# Please do not change this version value!
+# 请不要更改此版本值！
 Config-Version: 2
